@@ -19,13 +19,12 @@ const ClientPage: React.FC = () => {
     return (
         <div>
             <div>Client Page</div>
-            <button
+            <button className='bg-blue-500 min-w-fit hover:bg-blue-700 text-white p-2 m-2 rounded'
                 onClick={async () => {
                     // 👇 `trpc` has the same procedures as the server
                     const user = await trpc.userList.query(3);
                     console.log(user);
-                }}>click</button>
-            <div>Client Page</div>
+                }}>click</button>            
         </div>
     )
 }
