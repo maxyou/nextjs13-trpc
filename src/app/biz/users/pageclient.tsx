@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
-import type { AppRouter } from '@/app/api/server';
+import type { AppRouter } from '@/app/api/server/routers';
 
 const ClientPage: React.FC = () => {
 
@@ -22,7 +22,7 @@ const ClientPage: React.FC = () => {
             <button className='bg-blue-500 min-w-fit hover:bg-blue-700 text-white p-2 m-2 rounded'
                 onClick={async () => {
                     // 👇 `trpc` has the same procedures as the server
-                    const user = await trpc.userList.query(3);
+                    const user = await trpc.userList.query(4);
                     console.log(user);
                 }}>click</button>            
         </div>
