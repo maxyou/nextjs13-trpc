@@ -2,7 +2,7 @@ Try tRPC with next.js 13 app router.
 
 ## Key code
 
-router
+server router
 ```typescript
 const users = 
     ["user1", "user2", "user3"];
@@ -37,7 +37,7 @@ export type AppRouter = typeof appRouter;
 ```
 
 
-add router to server
+add server router to http server
 ```typescript
 import {
     FetchCreateContextFnOptions,
@@ -63,9 +63,23 @@ import {
   export { handler as GET, handler as POST };
 ```
 
+client get type from server
+```typescript
+import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
+import type { AppRouter } from '@/app/api/server/routers';
 
+  // Pass AppRouter as generic here. 👇 This lets the `trpc` object know
+  // what procedures are available on the server and their input/output types.
+  const trpc = createTRPCProxyClient<AppRouter>({
+    links: [
+      httpBatchLink({
+        url: 'http://localhost:3000/api/trpc',
+      }),
+    ],
+  });
+```
 
-client
+client query from server
 ```typescript
   const handleGetUsers = async () => {
     const users = await trpc.userList.query(100);
