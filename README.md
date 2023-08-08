@@ -14,9 +14,11 @@ export const appRouter = router({
         .input(z.number())
         .query(async ({input}) => {
             if (input >= users.length) {
-                return users.slice(); // Return a shallow copy of the whole array
+                // Return a shallow copy of the whole array
+                return users.slice(); 
               } else {
-                return users.slice(0, input); // Return a shallow copy of the first n elements
+                // Return a shallow copy of the first n elements
+                return users.slice(0, input); 
               }
         }),
     
@@ -33,6 +35,35 @@ export const appRouter = router({
  
 export type AppRouter = typeof appRouter;
 ```
+
+
+add router to server
+```typescript
+import {
+    FetchCreateContextFnOptions,
+    fetchRequestHandler,
+  } from "@trpc/server/adapters/fetch";
+
+  import { appRouter } from "../../server/routers";
+
+  const handler = (request: Request) => {
+    console.log(`incoming request ${request.url}`);
+    return fetchRequestHandler({
+      endpoint: "/api/trpc",
+      req: request,
+      router: appRouter,
+      createContext: function (
+        opts: FetchCreateContextFnOptions
+      ): object | Promise<object> {
+        return {};
+      },
+    });
+  };
+  
+  export { handler as GET, handler as POST };
+```
+
+
 
 client
 ```typescript
