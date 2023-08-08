@@ -2,7 +2,7 @@ import { publicProcedure, router } from './trpc';
 import { z } from 'zod';
 
 const users = 
-    ["user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8"];
+    ["user1", "user2", "user3"];
 
 export const appRouter = router({
     
